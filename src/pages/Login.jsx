@@ -29,15 +29,7 @@ export default function Login() {
     }
   }
 
-  const fillDemoAdmin = () => {
-    setEmail('admin@aabb.com')
-    setPassword('admin123')
-  }
 
-  const fillDemoViewer = () => {
-    setEmail('visitor@aabb.com')
-    setPassword('visitor123')
-  }
 
   return (
     <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 py-12 bg-background relative overflow-hidden">
@@ -112,28 +104,7 @@ export default function Login() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-10 pt-8 border-t border-white/5 relative z-10">
-            <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em] text-center mb-6">
-              Acesso Rápido para Testes:
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                onClick={fillDemoAdmin}
-                className="p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-left transition-all group"
-              >
-                <p className="text-accent font-bebas text-xl leading-none">ADMIN</p>
-                <p className="text-[10px] text-text-secondary mt-1 group-hover:text-white transition-colors">Acesso Total</p>
-              </button>
-              <button
-                onClick={fillDemoViewer}
-                className="p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-left transition-all group"
-              >
-                <p className="text-white font-bebas text-xl leading-none">VISITOR</p>
-                <p className="text-[10px] text-text-secondary mt-1 group-hover:text-white transition-colors">Somente Visualizar</p>
-              </button>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
