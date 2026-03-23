@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import logoBola from '../assets/logo-bola.png'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -40,10 +41,10 @@ export default function Login() {
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="w-24 h-24 bg-accent rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-accent/20 rotate-3 hover:rotate-0 transition-transform duration-500">
-            <span className="font-bebas text-6xl text-primary">A</span>
+          <div className="w-24 h-24 bg-white rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 overflow-hidden">
+            <img src={logoBola} alt="Bola" className="w-20 h-20 object-contain" />
           </div>
-          <h2 className="font-bebas text-5xl text-white tracking-widest leading-none">AABB <span className="text-accent">LOGIN</span></h2>
+          <h2 className="font-bebas text-5xl text-white tracking-widest leading-none">SUPERMASTER <span className="text-accent">LOGIN</span></h2>
           <p className="text-text-secondary font-medium mt-3 uppercase tracking-widest text-[10px]">Área Restrita para Administradores</p>
         </div>
 

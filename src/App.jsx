@@ -25,7 +25,7 @@ function App() {
           <footer className="bg-slate-900 border-t border-slate-800 py-6 mt-12">
             <div className="max-w-7xl mx-auto px-4 text-center">
               <p className="text-slate-500 text-sm">
-                AABB - Associação Atlética Banco do Brasil • Campeonato 2026
+                SUPERMASTER AABB • Campeonato Brasília 2026
               </p>
             </div>
           </footer>

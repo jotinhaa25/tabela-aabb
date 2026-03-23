@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import logoBola from '../assets/logo-bola.png'
 
 export default function Header() {
   const { user, role, logout } = useAuth()
@@ -21,11 +22,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center font-bebas text-3xl text-primary shadow-lg group-hover:scale-105 transition-transform">
-              A
+            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform overflow-hidden">
+              <img src={logoBola} alt="Bola" className="w-10 h-10 object-contain" />
             </div>
             <div>
-              <h1 className="font-bebas text-3xl tracking-wider text-white leading-none">TABELA AABB</h1>
+              <h1 className="font-bebas text-3xl tracking-wider text-white leading-none uppercase">SUPERMASTER AABB</h1>
               <p className="text-[10px] text-accent uppercase tracking-[0.2em] mt-1 font-bold">Campeonato 2026</p>
             </div>
           </Link>
