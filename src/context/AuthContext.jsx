@@ -39,27 +39,45 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = async (email, password) => {
-    // For demo purposes, check against demo users
-    const isAdmin = email === DEMO_USERS.admin.email && password === DEMO_USERS.admin.password
-    const isViewer = email === DEMO_USERS.viewer.email && password === DEMO_USERS.viewer.password
-    
-    if (isAdmin) {
-      const userData = { email, role: 'admin' }
-      setUser(userData)
-      setRole('admin')
-      localStorage.setItem('aabb_user', email)
-      localStorage.setItem('aabb_role', 'admin')
-      return { success: true, role: 'admin' }
-    } else if (isViewer) {
-      const userData = { email, role: 'viewer' }
-      setUser(userData)
-      setRole('viewer')
-      localStorage.setItem('aabb_user', email)
-      localStorage.setItem('aabb_role', 'viewer')
-      return { success: true, role: 'viewer' }
+    // First, try to authenticate with Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (authError) {
+      // Fallback to demo check if Supabase auth fails
+      const isAdmin = email === DEMO_USERS.admin.email && password === DEMO_USERS.admin.password
+      const isViewer = email === DEMO_USERS.viewer.email && password === DEMO_USERS.viewer.password
+      
+      if (isAdmin) {
+        const userData = { email, role: 'admin' }
+        setUser(userData)
+        setRole('admin')
+        localStorage.setItem('aabb_user', email)
+        localStorage.setItem('aabb_role', 'admin')
+        return { success: true, role: 'admin' }
+      } else if (isViewer) {
+        const userData = { email, role: 'viewer' }
+        setUser(userData)
+        setRole('viewer')
+        localStorage.setItem('aabb_user', email)
+        localStorage.setItem('aabb_role', 'viewer')
+        return { success: true, role: 'viewer' }
+      }
+      
+      return { success: false, error: 'Credenciais inválidas' }
     }
-    
-    return { success: false, error: 'Credenciais inválidas' }
+
+    // Supabase auth succeeded
+    if (authData.user) {
+      setUser(authData.user)
+      const userRole = authData.user.user_metadata?.role || 'viewer'
+      setRole(userRole)
+      localStorage.setItem('aabb_user', authData.user.email)
+      localStorage.setItem('aabb_role', userRole)
+      return { success: true, role: userRole }
+    }
   }
 
   const logout = () => {
