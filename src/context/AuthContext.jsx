@@ -23,7 +23,11 @@ export function AuthProvider({ children }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user)
-        const userRole = session.user.user_metadata?.role || 'viewer'
+        // Força role 'admin' se o email for o do administrador configurado
+        const userRole = session.user.email === DEMO_USERS.admin.email 
+          ? 'admin' 
+          : (session.user.user_metadata?.role || 'viewer')
+        
         setRole(userRole)
         localStorage.setItem('aabb_user', session.user.email)
         localStorage.setItem('aabb_role', userRole)
@@ -47,17 +51,17 @@ export function AuthProvider({ children }) {
 
     if (authError) {
       // Fallback to demo check if Supabase auth fails
-      const isAdmin = email === DEMO_USERS.admin.email && password === DEMO_USERS.admin.password
-      const isViewer = email === DEMO_USERS.viewer.email && password === DEMO_USERS.viewer.password
+      const isAdminEmail = email === DEMO_USERS.admin.email && password === DEMO_USERS.admin.password
+      const isViewerEmail = email === DEMO_USERS.viewer.email && password === DEMO_USERS.viewer.password
       
-      if (isAdmin) {
+      if (isAdminEmail) {
         const userData = { email, role: 'admin' }
         setUser(userData)
         setRole('admin')
         localStorage.setItem('aabb_user', email)
         localStorage.setItem('aabb_role', 'admin')
         return { success: true, role: 'admin' }
-      } else if (isViewer) {
+      } else if (isViewerEmail) {
         const userData = { email, role: 'viewer' }
         setUser(userData)
         setRole('viewer')
@@ -72,7 +76,11 @@ export function AuthProvider({ children }) {
     // Supabase auth succeeded
     if (authData.user) {
       setUser(authData.user)
-      const userRole = authData.user.user_metadata?.role || 'viewer'
+      // Força role 'admin' se o email for o do administrador configurado
+      const userRole = authData.user.email === DEMO_USERS.admin.email 
+        ? 'admin' 
+        : (authData.user.user_metadata?.role || 'viewer')
+        
       setRole(userRole)
       localStorage.setItem('aabb_user', authData.user.email)
       localStorage.setItem('aabb_role', userRole)
