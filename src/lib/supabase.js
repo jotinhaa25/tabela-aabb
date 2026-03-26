@@ -7,8 +7,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export const DEMO_USERS = {
   admin: {
-    email: 'admin@aabb.com',
-    password: 'admin123',
+    email: 'jotao18@gmail.com',
+    password: 'admin18',
     role: 'admin'
   },
   viewer: {
